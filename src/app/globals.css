@@ -2,14 +2,16 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --navbar-height: 4rem; /* 64px = h-16 */
+  color-scheme: light;
+  --background: #f3f8ff;
+  --foreground: #172554;
+  --navbar-height: 4rem;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  color-scheme: dark;
+  --background: #081426;
+  --foreground: #e5eefc;
 }
 
 @theme inline {
@@ -19,36 +21,42 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html, body {
+html,
+body {
   height: 100%;
   height: 100dvh;
-  overflow: hidden; /* prevent body scroll, let inner elements scroll */
+  overflow: hidden;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  /* iOS safe area support */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
-/* Ensure fixed nav always on top */
+::selection {
+  color: #ffffff;
+  background: #2563eb;
+}
+
+* {
+  scrollbar-color: #bfdbfe transparent;
+  scrollbar-width: thin;
+}
+
+.dark * {
+  scrollbar-color: #334e73 transparent;
+}
+
 nav[class*="fixed"] {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
   z-index: 9999 !important;
-  /* iOS momentum scroll fix */
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
 }
